@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Basic Plan",
+    "price": 0,
+    "durationDays": 7,
+    "maxListings": 1,
+    "features": ["Standard Listing"],
+    "isActive": true
+  },
+  {
+    "name": "Premium Plan",
+    "price": 999,
+    "durationDays": 30,
+    "maxListings": 5,
+    "features": ["Featured Listing", "Priority Support"],
+    "isActive": true
+  },
+  {
+    "name": "Enterprise Plan",
+    "price": 2999,
+    "durationDays": 90,
+    "maxListings": 20,
+    "features": ["Premium Support", "Top Placement", "Unlimited Edits"],
+    "isActive": true
+  }
+]

@@ -1,0 +1,45 @@
+[{
+  "_id": {
+    "$oid": "68749f6ef4cf436bad09a1bb"
+  },
+  "name": "Basic",
+  "price": 500,
+  "durationDays": 30,
+  "maxListings": 1,
+  "features": [
+    "Standard Listing",
+    "Email Support"
+  ],
+  "isActive": true
+},
+{
+  "_id": {
+    "$oid": "68749f6ef4cf436bad09a1bc"
+  },
+  "name": "Standard",
+  "price": 2000,
+  "durationDays": 90,
+  "maxListings": 3,
+  "features": [
+    "Featured Listing",
+    "Priority Support",
+    "Promoted Visibility"
+  ],
+  "isActive": true
+},
+{
+  "_id": {
+    "$oid": "68749f6ef4cf436bad09a1bd"
+  },
+  "name": "Premium",
+  "price": 10000,
+  "durationDays": 180,
+  "maxListings": 6,
+  "features": [
+    "Top Featured Listing",
+    "24/7 Premium Support",
+    "Homepage Highlight",
+    "Ad-Free Dashboard"
+  ],
+  "isActive": true
+}]

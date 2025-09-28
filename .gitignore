@@ -1,0 +1,53 @@
+
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+
+# Build output
+dist/
+build/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# OS-specific
+.DS_Store         # macOS
+Thumbs.db         # Windows
+
+# IDE-specific
+.vscode/
+.idea/
+
+# Cache
+.cache/
+.next/
+out/
+
+# Test coverage
+coverage/
+
+# Optional: ignore uploads/images in development
+uploads/
+public/uploads/
+
+# Optional: if using Stripe CLI or similar
+.stripe/
+
+# Optional: if using Linux/macOS lock files
+*.swp
+
+# Optional: ignore database dumps (if any)
+*.sql
+*.sqlite
+
+# Optional: ignore sensitive backup or config files
+*.bak
+*.old
+*.pem
+*.key
+*.crt
+*.pfx

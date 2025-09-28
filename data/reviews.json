@@ -1,0 +1,37 @@
+[
+  {
+    "review": "Amazing experience! The house was clean and well-maintained.",
+    "rating": 5,
+    "propertyId": "68733a26482589f3d2579388",
+    "tenantId": "68739b72c784b639e1f8f161",
+    "bookingId": "64eaea2e6b5a8f4c313fcb45"
+  },
+  {
+    "review": "The location was good but the property needed some repairs.",
+    "rating": 3,
+    "propertyId": "6873fe52d28800d7f03d45a3",
+    "tenantId": "68739b72c784b639e1f8f161",
+    "bookingId": "64eaea2e6b5a8f4c313fcb46"
+  },
+  {
+    "review": "Very bad experience. Owner was not cooperative.",
+    "rating": 1,
+    "propertyId": "68733a26482589f3d2579388",
+    "tenantId": "68739b72c784b639e1f8f161",
+    "bookingId": "64eaea2e6b5a8f4c313fcb47"
+  },
+  {
+    "review": "Comfortable stay and great support from the property manager.",
+    "rating": 4,
+    "propertyId": "6873fe52d28800d7f03d45a3",
+    "tenantId": "68739b72c784b639e1f8f161",
+    "bookingId": "64eaea2e6b5a8f4c313fcb48"
+  },
+  {
+    "review": "Everything was perfect! I will rent again for sure.",
+    "rating": 5,
+    "propertyId": "68733a26482589f3d2579388",
+    "tenantId": "68739b72c784b639e1f8f161",
+    "bookingId": "64eaea2e6b5a8f4c313fcb49"
+  }
+]
