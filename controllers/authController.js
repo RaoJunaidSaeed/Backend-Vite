@@ -109,15 +109,19 @@ exports.verifyOTP = catchAsync(async (req, res, next) => {
   // 1. Find the user and include OTP fields
   const user = await User.findOne({ email }).select('+otp +otpExpires');
 
-  // 2. Validate OTP and expiry
-  if (
-    !user ||
-    !user.correctOtp(otp) || // assumes you have a custom instance method `correctOtp`
-    user.otpExpires < Date.now()
-  ) {
-    return next(
-      new AppError('Invalid or expired OTP. Please try again or request a new one.', 400)
-    );
+  // If no user found
+  if (!user) {
+    return next(new AppError('User not found.', 404));
+  }
+
+  // OTP invalid or expired
+  if (!user.correctOtp(otp) || user.otpExpires < Date.now()) {
+    // ❌ Delete the unverified user
+    if (!user.isVerified) {
+      await User.deleteOne({ email });
+    }
+
+    return next(new AppError('Invalid or expired OTP. Signup failed, please register again.', 400));
   }
 
   // 3. Mark user as verified
