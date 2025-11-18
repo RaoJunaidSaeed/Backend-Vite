@@ -37,7 +37,8 @@ const userSchema = new mongoose.Schema({
   },
   photo: {
     type: String,
-    default: 'default-avatar.png', // Optional fallback
+    default:
+      'https://res.cloudinary.com/dcmld4ryz/image/upload/v1761499242/user-profile-image_fphdf0.png', // Optional fallback
   },
   password: {
     type: String,
@@ -133,18 +134,15 @@ const User = mongoose.model('User', userSchema);
 
 module.exports = User;
 
-
 // Virtual populate rent payments
-userSchema.virtual("rentPayments", {
-  ref: "RentPayment",
-  foreignField: "tenantId",
-  localField: "_id",
+userSchema.virtual('rentPayments', {
+  ref: 'RentPayment',
+  foreignField: 'tenantId',
+  localField: '_id',
 });
 
-userSchema.virtual("ownedRentPayments", {
-  ref: "RentPayment",
-  foreignField: "ownerId",
-  localField: "_id",
+userSchema.virtual('ownedRentPayments', {
+  ref: 'RentPayment',
+  foreignField: 'ownerId',
+  localField: '_id',
 });
-
-
