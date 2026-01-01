@@ -45,4 +45,6 @@ router.patch(
   bookingController.updateBookingStatus
 );
 
+// router.get('/mydatabook', bookingController.getTenantBookingsToday);
+
 module.exports = router;

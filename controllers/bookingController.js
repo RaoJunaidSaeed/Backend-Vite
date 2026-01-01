@@ -315,3 +315,23 @@ exports.updateBookingStatus = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+// exports.getTenantBookingsToday = catchAsync(async (req, res, next) => {
+//   const startOfDay = new Date();
+//   const bookings = await Booking.find({
+//     createdAt: {
+//       $eq: startOfDay,
+//     },
+//   }).populate({
+//     path: 'propertyId',
+//     select: 'title address rentAmount',
+//   });
+
+//   res.status(200).json({
+//     status: 'success',
+//     results: bookings.length,
+//     data: {
+//       bookings,
+//     },
+//   });
+// });
