@@ -7,8 +7,8 @@ router.post('/signup', authController.signup);
 router.post('/login', authController.login);
 router.post('/forgotPassword', authController.forgotPassword);
 router.patch('/resetPassword/:token', authController.resetPassword);
-router.post('/sendOTP', authController.sendOTP);
-router.post('/verifyOTP', authController.verifyOTP);
-router.post('/resendOTP', authController.resendOTP);
+// router.post('/sendOTP', authController.sendOTP);
+// router.post('/verifyOTP', authController.verifyOTP);
+// router.post('/resendOTP', authController.resendOTP);S
 
 module.exports = router;

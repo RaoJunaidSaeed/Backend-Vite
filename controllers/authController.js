@@ -41,143 +41,162 @@ const sendToken = (user, statusCode, res) => {
   });
 };
 
-const otpStore = {};
+// const otpStore = {};
 
 /**
  * 1️⃣ Send OTP (does NOT create user yet)
  */
-exports.sendOTP = catchAsync(async (req, res, next) => {
-  const { email } = req.body;
+// exports.sendOTP = catchAsync(async (req, res, next) => {
+//   const { email } = req.body;
 
-  if (!email) {
-    return next(new AppError('Please provide your email.', 400));
-  }
+//   if (!email) {
+//     return next(new AppError('Please provide your email.', 400));
+//   }
 
-  const otp = otpGenerator.generateOTP();
-  otpStore[email] = {
-    otp,
-    expires: Date.now() + 10 * 60 * 1000, // 10 minutes
-  };
+//   const otp = otpGenerator.generateOTP();
+//   otpStore[email] = {
+//     otp,
+//     expires: Date.now() + 10 * 60 * 1000, // 10 minutes
+//   };
 
-  try {
-    await sendEmail(
-      email,
-      'Rentofix - Email Verification',
-      `<p>Your verification OTP is <strong>${otp}</strong>. It expires in 10 minutes.</p>`
-    );
+//   try {
+//     await sendEmail(
+//       email,
+//       'Rentofix - Email Verification',
+//       `<p>Your verification OTP is <strong>${otp}</strong>. It expires in 10 minutes.</p>`
+//     );
 
-    res.status(200).json({
-      status: 'success',
-      message: 'OTP sent to your email.',
-    });
-  } catch (err) {
-    delete otpStore[email];
-    return next(new AppError('Failed to send OTP. Please try again later.', 500));
-  }
-});
+//     res.status(200).json({
+//       status: 'success',
+//       message: 'OTP sent to your email.',
+//     });
+//   } catch (err) {
+//     delete otpStore[email];
+//     return next(new AppError('Failed to send OTP. Please try again later.', 500));
+//   }
+// });
 
-/**
- * 2️⃣ Verify OTP (only validates; does not create user)
- */
-exports.verifyOTP = catchAsync(async (req, res, next) => {
-  const { email, otp } = req.body;
+// /**
+//  * 2️⃣ Verify OTP (only validates; does not create user)
+//  */
+// exports.verifyOTP = catchAsync(async (req, res, next) => {
+//   const { email, otp } = req.body;
 
-  if (!email || !otp) {
-    return next(new AppError('Please provide email and OTP.', 400));
-  }
+//   if (!email || !otp) {
+//     return next(new AppError('Please provide email and OTP.', 400));
+//   }
 
-  const stored = otpStore[email];
+//   const stored = otpStore[email];
 
-  if (!stored) {
-    return next(new AppError('No OTP found for this email. Please request again.', 404));
-  }
+//   if (!stored) {
+//     return next(new AppError('No OTP found for this email. Please request again.', 404));
+//   }
 
-  if (stored.expires < Date.now()) {
-    delete otpStore[email];
-    return next(new AppError('OTP expired. Please request a new one.', 400));
-  }
+//   if (stored.expires < Date.now()) {
+//     delete otpStore[email];
+//     return next(new AppError('OTP expired. Please request a new one.', 400));
+//   }
 
-  if (stored.otp !== otp) {
-    return next(new AppError('Invalid OTP. Please try again.', 400));
-  }
+//   if (stored.otp !== otp) {
+//     return next(new AppError('Invalid OTP. Please try again.', 400));
+//   }
 
-  // ✅ OTP verified — mark as verified
-  stored.verified = true;
+//   // ✅ OTP verified — mark as verified
+//   stored.verified = true;
 
-  res.status(200).json({
-    status: 'success',
-    message: 'OTP verified successfully.',
-  });
-});
+//   res.status(200).json({
+//     status: 'success',
+//     message: 'OTP verified successfully.',
+//   });
+// });
 
-/**
- * 3️⃣ Signup (only allowed if OTP verified)
- */
+// /**
+//  * 3️⃣ Signup (only allowed if OTP verified)
+//  */
+// exports.signup = catchAsync(async (req, res, next) => {
+//   const { email } = req.body;
+
+//   // Ensure OTP verified before allowing signup
+//   const stored = otpStore[email];
+
+//   if (!stored || !stored.verified) {
+//     return next(new AppError('Please verify your email before signing up.', 400));
+//   }
+
+//   // Create user
+//   const newUser = await User.create({
+//     firstName: req.body.firstName,
+//     lastName: req.body.lastName,
+//     email,
+//     password: req.body.password,
+//     passwordConfirm: req.body.passwordConfirm,
+//     role: req.body.role || 'tenant',
+//     phoneNumber: req.body.phoneNumber,
+//     isVerified: true,
+//   });
+
+//   // ✅ Cleanup OTP record after signup
+//   delete otpStore[email];
+
+//   res.status(201).json({
+//     status: 'success',
+//     message: 'Signup complete! You can now log in.',
+//     data: {
+//       user: newUser,
+//     },
+//   });
+// });
+
+// /**
+//  * 4️⃣ Resend OTP
+//  */
+// exports.resendOTP = catchAsync(async (req, res, next) => {
+//   const { email } = req.body;
+
+//   if (!email) {
+//     return next(new AppError('Please provide your email.', 400));
+//   }
+
+//   const otp = otpGenerator.generateOTP();
+//   otpStore[email] = {
+//     otp,
+//     expires: Date.now() + 10 * 60 * 1000,
+//   };
+
+//   try {
+//     await sendEmail(
+//       email,
+//       'Rentofix - New OTP Code',
+//       `<p>Your new OTP is <strong>${otp}</strong>. It expires in 10 minutes.</p>`
+//     );
+
+//     res.status(200).json({
+//       status: 'success',
+//       message: 'New OTP sent successfully.',
+//     });
+//   } catch (err) {
+//     delete otpStore[email];
+//     return next(new AppError('Failed to resend OTP.', 500));
+//   }
+// });
+
 exports.signup = catchAsync(async (req, res, next) => {
-  const { email } = req.body;
-
-  // Ensure OTP verified before allowing signup
-  const stored = otpStore[email];
-
-  if (!stored || !stored.verified) {
-    return next(new AppError('Please verify your email before signing up.', 400));
-  }
-
-  // Create user
+  // 1. Create the user directly from the request body
   const newUser = await User.create({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
-    email,
+    email: req.body.email,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
-    role: req.body.role || 'tenant',
+    role: req.body.role || 'tenant', // Default to tenant if not specified
     phoneNumber: req.body.phoneNumber,
+    // Note: We act as if they are verified since you removed the check
+    // or you can set this to false if you plan to send an email link later.
     isVerified: true,
   });
 
-  // ✅ Cleanup OTP record after signup
-  delete otpStore[email];
-
-  res.status(201).json({
-    status: 'success',
-    message: 'Signup complete! You can now log in.',
-    data: {
-      user: newUser,
-    },
-  });
-});
-
-/**
- * 4️⃣ Resend OTP
- */
-exports.resendOTP = catchAsync(async (req, res, next) => {
-  const { email } = req.body;
-
-  if (!email) {
-    return next(new AppError('Please provide your email.', 400));
-  }
-
-  const otp = otpGenerator.generateOTP();
-  otpStore[email] = {
-    otp,
-    expires: Date.now() + 10 * 60 * 1000,
-  };
-
-  try {
-    await sendEmail(
-      email,
-      'Rentofix - New OTP Code',
-      `<p>Your new OTP is <strong>${otp}</strong>. It expires in 10 minutes.</p>`
-    );
-
-    res.status(200).json({
-      status: 'success',
-      message: 'New OTP sent successfully.',
-    });
-  } catch (err) {
-    delete otpStore[email];
-    return next(new AppError('Failed to resend OTP.', 500));
-  }
+  // 2. Generate token and send response
+  sendToken(newUser, 201, res);
 });
 
 //////// 2. Login  //////////////
